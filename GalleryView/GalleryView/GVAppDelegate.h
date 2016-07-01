@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  GVAppDelegate.h
 //  GalleryView
 //
 //  Created by Thomas Forzaglia on 6/30/16.
@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface GVAppDelegate : NSObject <NSApplicationDelegate>
 
+@property (weak) IBOutlet NSWindow *window;
 
 @end
 

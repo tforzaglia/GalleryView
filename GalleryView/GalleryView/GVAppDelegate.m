@@ -1,27 +1,26 @@
 //
-//  AppDelegate.m
+//  GVAppDelegate.m
 //  GalleryView
 //
 //  Created by Thomas Forzaglia on 6/30/16.
 //  Copyright © 2016 Thomas Forzaglia. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "GVAppDelegate.h"
+#import "GVMainWindowController.h"
 
-@interface AppDelegate ()
+@interface GVAppDelegate ()
 
-@property (weak) IBOutlet NSWindow *window;
+@property (nonatomic, strong) GVMainWindowController *mainWindow;
 
 @end
 
-@implementation AppDelegate
+@implementation GVAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
-}
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    [self.window close];
+    self.mainWindow = [[GVMainWindowController alloc] init];
+    self.window = self.mainWindow.window;
 }
 
 @end

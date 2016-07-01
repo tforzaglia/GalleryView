@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		920B8F7B1D25E70600E684CD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8F7A1D25E70600E684CD /* AppDelegate.m */; };
+		920B8F7B1D25E70600E684CD /* GVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8F7A1D25E70600E684CD /* GVAppDelegate.m */; };
 		920B8F7E1D25E70600E684CD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8F7D1D25E70600E684CD /* main.m */; };
 		920B8F801D25E70600E684CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 920B8F7F1D25E70600E684CD /* Assets.xcassets */; };
 		920B8F831D25E70600E684CD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920B8F811D25E70600E684CD /* MainMenu.xib */; };
 		920B8F8E1D25E70600E684CD /* GalleryViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8F8D1D25E70600E684CD /* GalleryViewTests.m */; };
 		920B8F991D25E70600E684CD /* GalleryViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8F981D25E70600E684CD /* GalleryViewUITests.m */; };
+		920B8FAB1D25EBE900E684CD /* GVMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8FA91D25EBE900E684CD /* GVMainWindowController.m */; };
+		920B8FAC1D25EBE900E684CD /* GVMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920B8FAA1D25EBE900E684CD /* GVMainWindow.xib */; };
+		920B8FB11D25F34700E684CD /* GVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8FAF1D25F34700E684CD /* GVMainViewController.m */; };
+		920B8FB21D25F34700E684CD /* GVMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920B8FB01D25F34700E684CD /* GVMainView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		920B8F761D25E70600E684CD /* GalleryView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GalleryView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		920B8F791D25E70600E684CD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		920B8F7A1D25E70600E684CD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		920B8F791D25E70600E684CD /* GVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVAppDelegate.h; sourceTree = "<group>"; };
+		920B8F7A1D25E70600E684CD /* GVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVAppDelegate.m; sourceTree = "<group>"; };
 		920B8F7D1D25E70600E684CD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		920B8F7F1D25E70600E684CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		920B8F821D25E70600E684CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -46,6 +50,12 @@
 		920B8F941D25E70600E684CD /* GalleryViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GalleryViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		920B8F981D25E70600E684CD /* GalleryViewUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GalleryViewUITests.m; sourceTree = "<group>"; };
 		920B8F9A1D25E70600E684CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		920B8FA81D25EBE900E684CD /* GVMainWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVMainWindowController.h; sourceTree = "<group>"; };
+		920B8FA91D25EBE900E684CD /* GVMainWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVMainWindowController.m; sourceTree = "<group>"; };
+		920B8FAA1D25EBE900E684CD /* GVMainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVMainWindow.xib; sourceTree = "<group>"; };
+		920B8FAE1D25F34700E684CD /* GVMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVMainViewController.h; sourceTree = "<group>"; };
+		920B8FAF1D25F34700E684CD /* GVMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVMainViewController.m; sourceTree = "<group>"; };
+		920B8FB01D25F34700E684CD /* GVMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVMainView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +106,10 @@
 		920B8F781D25E70600E684CD /* GalleryView */ = {
 			isa = PBXGroup;
 			children = (
-				920B8F791D25E70600E684CD /* AppDelegate.h */,
-				920B8F7A1D25E70600E684CD /* AppDelegate.m */,
+				920B8FA71D25EB5F00E684CD /* Application */,
+				920B8FAD1D25F30100E684CD /* View */,
+				920B8FA61D25EB5300E684CD /* Window */,
 				920B8F7F1D25E70600E684CD /* Assets.xcassets */,
-				920B8F811D25E70600E684CD /* MainMenu.xib */,
 				920B8F841D25E70600E684CD /* Info.plist */,
 				920B8F7C1D25E70600E684CD /* Supporting Files */,
 			);
@@ -130,6 +140,36 @@
 				920B8F9A1D25E70600E684CD /* Info.plist */,
 			);
 			path = GalleryViewUITests;
+			sourceTree = "<group>";
+		};
+		920B8FA61D25EB5300E684CD /* Window */ = {
+			isa = PBXGroup;
+			children = (
+				920B8F811D25E70600E684CD /* MainMenu.xib */,
+				920B8FA81D25EBE900E684CD /* GVMainWindowController.h */,
+				920B8FA91D25EBE900E684CD /* GVMainWindowController.m */,
+				920B8FAA1D25EBE900E684CD /* GVMainWindow.xib */,
+			);
+			name = Window;
+			sourceTree = "<group>";
+		};
+		920B8FA71D25EB5F00E684CD /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				920B8F791D25E70600E684CD /* GVAppDelegate.h */,
+				920B8F7A1D25E70600E684CD /* GVAppDelegate.m */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		920B8FAD1D25F30100E684CD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				920B8FAE1D25F34700E684CD /* GVMainViewController.h */,
+				920B8FAF1D25F34700E684CD /* GVMainViewController.m */,
+				920B8FB01D25F34700E684CD /* GVMainView.xib */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,6 +277,8 @@
 			files = (
 				920B8F801D25E70600E684CD /* Assets.xcassets in Resources */,
 				920B8F831D25E70600E684CD /* MainMenu.xib in Resources */,
+				920B8FB21D25F34700E684CD /* GVMainView.xib in Resources */,
+				920B8FAC1D25EBE900E684CD /* GVMainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +304,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				920B8F7E1D25E70600E684CD /* main.m in Sources */,
-				920B8F7B1D25E70600E684CD /* AppDelegate.m in Sources */,
+				920B8FAB1D25EBE900E684CD /* GVMainWindowController.m in Sources */,
+				920B8FB11D25F34700E684CD /* GVMainViewController.m in Sources */,
+				920B8F7B1D25E70600E684CD /* GVAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,9 +14,8 @@
 
 @implementation GVMainViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do view setup here.
+- (id)init {
+    return [super initWithNibName:@"GVMainView" bundle:[NSBundle bundleForClass:[self class]]];
 }
 
 @end
