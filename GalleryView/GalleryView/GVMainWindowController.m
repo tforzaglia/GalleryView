@@ -12,6 +12,7 @@
 @interface GVMainWindowController ()
 
 @property (nonatomic, weak) IBOutlet NSView *mainView;
+@property (nonatomic, weak) IBOutlet GVMainViewController *mainViewController;
 
 @end
 
@@ -24,8 +25,7 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-    GVMainViewController *mainViewController = [[GVMainViewController alloc] init];
-    [self.mainView addSubview:mainViewController.view];
+    [self.mainView addSubview:self.mainViewController.view];
 }
 
 @end
