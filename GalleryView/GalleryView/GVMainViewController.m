@@ -6,6 +6,8 @@
 //  Copyright © 2016 Thomas Forzaglia. All rights reserved.
 //
 
+#include <stdlib.h>
+
 #import "GVImageFile.h"
 #import "GVMainViewController.h"
 
@@ -13,8 +15,10 @@
 
 - (IBAction)openImageDirectory:(id)sender;
 - (IBAction)openImageInPreview:(id)sender;
+- (IBAction)selectRandomImage:(id)sender;
 
 @property (weak) IBOutlet NSButton *openDirectoryButton;
+@property (weak) IBOutlet NSButton *randomImageButton;
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTableColumn *fileCol;
 @property (weak) IBOutlet NSTableColumn *tagCol;
@@ -43,6 +47,7 @@
     self.allTags = [[NSSet alloc] init];
     self.filteredImageFileObjects = [[NSArray alloc] init];
     self.filterEnabled = NO;
+    [self setWidgetsEnabled:NO];
 }
 
 - (id)init {
@@ -64,6 +69,7 @@
             self.imageFileObjects = [self buildImageFileArray];
             
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            [self setWidgetsEnabled:YES];
         }
     }];
 }
@@ -75,7 +81,7 @@
 
 - (IBAction)showImageInWell:(id)sender {
     GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView clickedRow]];
-    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[self fullFilePath:imageFile]]];
+    [self showImageThumbnail:imageFile];
 }
 
 - (IBAction)filterImages:(id)sender {
@@ -93,6 +99,17 @@
 
 - (IBAction)enableFilter:(id)sender {
     [self handleFilterEnabling];
+}
+
+- (IBAction)selectRandomImage:(id)sender {
+    NSNumber *count  = [NSNumber numberWithUnsignedInteger:[[self currentDataSourceArray] count]];
+    int randomIndex = arc4random_uniform([count unsignedIntValue]);
+    GVImageFile *randomImage = [self currentDataSourceArray][randomIndex];
+    [self showImageThumbnail:randomImage];
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:randomIndex];
+    [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    [self.tableView scrollRowToVisible:randomIndex];
 }
 
 #pragma mark Private Methods
@@ -114,7 +131,7 @@
         
         self.allTags = [self.allTags setByAddingObjectsFromArray:tags];
         
-        // TODO remove this a replace with:
+        // TODO: remove this a replace with:
         // turn allTags set into array
         // sort array by name
         // add items from array to tagFilter
@@ -140,6 +157,16 @@
 - (void)handleFilterEnabling {
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)showImageThumbnail:(GVImageFile *)imageFile {
+    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[self fullFilePath:imageFile]]];
+}
+
+- (void)setWidgetsEnabled:(BOOL)enabled {
+    self.tagFilter.enabled = enabled;
+    self.enableFilterCheckbox.enabled = enabled;
+    self.randomImageButton.enabled = enabled;
 }
 
 #pragma mark NSTableViewDataSource Protocol Methods

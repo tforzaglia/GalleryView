@@ -10,6 +10,8 @@
                 <outlet property="enableFilterCheckbox" destination="cFr-X2-CXA" id="a6H-4i-kR6"/>
                 <outlet property="fileCol" destination="r5u-XY-Fgl" id="lQd-VI-Xjn"/>
                 <outlet property="imageView" destination="cA8-X4-yeI" id="hMR-II-wiX"/>
+                <outlet property="openDirectoryButton" destination="dhv-D6-Ycy" id="5Wg-rZ-AQI"/>
+                <outlet property="randomImageButton" destination="FvA-tW-BN2" id="klF-ae-LOF"/>
                 <outlet property="tableView" destination="wYQ-L0-nC5" id="olo-qA-YPE"/>
                 <outlet property="tagCol" destination="HP3-rn-nBo" id="tVR-RR-6o0"/>
                 <outlet property="tagFilter" destination="NyY-YX-s0m" id="e0W-KU-Kc7"/>
@@ -103,6 +105,9 @@
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
+                    <connections>
+                        <action selector="selectRandomImage:" target="-2" id="5Pa-Pf-B0F"/>
+                    </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-YX-s0m">
                     <rect key="frame" x="235" y="589" width="185" height="26"/>
