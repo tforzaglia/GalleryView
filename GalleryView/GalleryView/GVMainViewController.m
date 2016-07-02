@@ -25,6 +25,8 @@
 
 @implementation GVMainViewController
 
+#pragma mark Initialization Methods
+
 - (void)awakeFromNib {
     [self.tableView setTarget:self];
     [self.tableView setAction:@selector(showImageInWell:)];
@@ -38,6 +40,8 @@
 - (id)initWithCoder:(NSCoder *)aDecoder {
     return [super initWithNibName:@"GVMainView" bundle:[NSBundle bundleForClass:[self class]]];
 }
+
+#pragma  mark IBAction Methods
 
 - (IBAction)openImageDirectory:(id)sender {
     NSOpenPanel* panel = [NSOpenPanel openPanel];
@@ -54,15 +58,20 @@
 
 - (IBAction)openImageInPreview:(id)sender {
     NSInteger clickedRow = [self.tableView clickedRow];
-    NSString *filename = self.imageFilenameArray[clickedRow];
-    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]];
+    [self openImageAtRow:clickedRow];
 }
 
 - (IBAction)showImageInWell:(id)sender {
     NSInteger clickedRow = [self.tableView clickedRow];
     NSString *filename = self.imageFilenameArray[clickedRow];
     [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]]];
-    
+}
+
+#pragma mark Private Methods
+
+- (void)openImageAtRow:(NSInteger)row {
+    NSString *filename = self.imageFilenameArray[row];
+    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]];
 }
 
 #pragma mark NSTableViewDataSource Protocol Methods
@@ -87,6 +96,11 @@
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
     NSString *filename = self.imageFilenameArray[row];
     [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]]];
+    return YES;
+}
+
+-(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    [self openImageAtRow:row];
     return YES;
 }
 
