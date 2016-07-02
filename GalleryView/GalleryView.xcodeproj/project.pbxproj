@@ -17,6 +17,7 @@
 		920B8FAC1D25EBE900E684CD /* GVMainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920B8FAA1D25EBE900E684CD /* GVMainWindow.xib */; };
 		920B8FB11D25F34700E684CD /* GVMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 920B8FAF1D25F34700E684CD /* GVMainViewController.m */; };
 		920B8FB21D25F34700E684CD /* GVMainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 920B8FB01D25F34700E684CD /* GVMainView.xib */; };
+		925BF4621D2804D200823EFB /* GVImageFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 925BF4611D2804D200823EFB /* GVImageFile.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		920B8FAE1D25F34700E684CD /* GVMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVMainViewController.h; sourceTree = "<group>"; };
 		920B8FAF1D25F34700E684CD /* GVMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVMainViewController.m; sourceTree = "<group>"; };
 		920B8FB01D25F34700E684CD /* GVMainView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GVMainView.xib; sourceTree = "<group>"; };
+		925BF4601D2804D200823EFB /* GVImageFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVImageFile.h; sourceTree = "<group>"; };
+		925BF4611D2804D200823EFB /* GVImageFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVImageFile.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				920B8FA71D25EB5F00E684CD /* Application */,
+				925BF45F1D2804B700823EFB /* Model */,
 				920B8FAD1D25F30100E684CD /* View */,
 				920B8FA61D25EB5300E684CD /* Window */,
 				920B8F7F1D25E70600E684CD /* Assets.xcassets */,
@@ -170,6 +174,15 @@
 				920B8FB01D25F34700E684CD /* GVMainView.xib */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		925BF45F1D2804B700823EFB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				925BF4601D2804D200823EFB /* GVImageFile.h */,
+				925BF4611D2804D200823EFB /* GVImageFile.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				925BF4621D2804D200823EFB /* GVImageFile.m in Sources */,
 				920B8F7E1D25E70600E684CD /* main.m in Sources */,
 				920B8FAB1D25EBE900E684CD /* GVMainWindowController.m in Sources */,
 				920B8FB11D25F34700E684CD /* GVMainViewController.m in Sources */,
@@ -527,6 +541,7 @@
 				920B8F9F1D25E70600E684CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		920B8FA01D25E70600E684CD /* Build configuration list for PBXNativeTarget "GalleryViewTests" */ = {
 			isa = XCConfigurationList;
@@ -535,6 +550,7 @@
 				920B8FA21D25E70600E684CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		920B8FA31D25E70600E684CD /* Build configuration list for PBXNativeTarget "GalleryViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -543,6 +559,7 @@
 				920B8FA51D25E70600E684CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
