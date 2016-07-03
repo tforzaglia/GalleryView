@@ -6,20 +6,32 @@
 //  Copyright © 2016 Thomas Forzaglia. All rights reserved.
 //
 
+#include <stdlib.h>
+
+#import "GVImageFile.h"
 #import "GVMainViewController.h"
 
 @interface GVMainViewController ()
 
 - (IBAction)openImageDirectory:(id)sender;
 - (IBAction)openImageInPreview:(id)sender;
+- (IBAction)selectRandomImage:(id)sender;
 
 @property (weak) IBOutlet NSButton *openDirectoryButton;
+@property (weak) IBOutlet NSButton *randomImageButton;
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTableColumn *fileCol;
+@property (weak) IBOutlet NSTableColumn *tagCol;
 @property (weak) IBOutlet NSImageView *imageView;
+@property (weak) IBOutlet NSPopUpButton *tagFilter;
+@property (weak) IBOutlet NSButton *enableFilterCheckbox;
 
-@property (nonatomic, strong) NSArray *imageFilenameArray;
+@property (nonatomic, strong) NSArray *imageFileObjects;
+@property (nonatomic, strong) NSArray *filteredImageFileObjects;
+@property (nonatomic, strong) NSSet *allTags;
 @property (nonatomic, strong) NSString *directoryPath;
+
+@property (nonatomic) BOOL filterEnabled;
 
 @end
 
@@ -31,6 +43,11 @@
     [self.tableView setTarget:self];
     [self.tableView setAction:@selector(showImageInWell:)];
     [self.tableView setDoubleAction:@selector(openImageInPreview:)];
+    
+    self.allTags = [[NSSet alloc] init];
+    self.filteredImageFileObjects = [[NSArray alloc] init];
+    self.filterEnabled = NO;
+    [self setWidgetsEnabled:NO];
 }
 
 - (id)init {
@@ -49,9 +66,10 @@
     [panel beginWithCompletionHandler:^(NSInteger result){
         if (result == NSFileHandlingPanelOKButton) {
             self.directoryPath = [[panel URL] path];
-            self.imageFilenameArray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.directoryPath error:nil];
+            self.imageFileObjects = [self buildImageFileArray];
             
             [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+            [self setWidgetsEnabled:YES];
         }
     }];
 }
@@ -62,40 +80,109 @@
 }
 
 - (IBAction)showImageInWell:(id)sender {
-    NSInteger clickedRow = [self.tableView clickedRow];
-    NSString *filename = self.imageFilenameArray[clickedRow];
-    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]]];
+    GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView clickedRow]];
+    [self showImageThumbnail:imageFile];
+}
+
+- (IBAction)filterImages:(id)sender {
+    NSString *tag = [[self.tagFilter selectedItem] title];
+    NSMutableArray *mutableFilteredImageObjects = [NSMutableArray array];
+    for (GVImageFile *imageFile in self.imageFileObjects) {
+        if ([imageFile.tags containsObject:tag]) {
+            [mutableFilteredImageObjects addObject:imageFile];
+        }
+    }
+    self.filteredImageFileObjects = mutableFilteredImageObjects;
+    [self.enableFilterCheckbox setState:NSOnState];
+    [self handleFilterEnabling];
+}
+
+- (IBAction)enableFilter:(id)sender {
+    [self handleFilterEnabling];
+}
+
+- (IBAction)selectRandomImage:(id)sender {
+    NSNumber *count  = [NSNumber numberWithUnsignedInteger:[[self currentDataSourceArray] count]];
+    int randomIndex = arc4random_uniform([count unsignedIntValue]);
+    GVImageFile *randomImage = [self currentDataSourceArray][randomIndex];
+    [self showImageThumbnail:randomImage];
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:randomIndex];
+    [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+    [self.tableView scrollRowToVisible:randomIndex];
 }
 
 #pragma mark Private Methods
 
 - (void)openImageAtRow:(NSInteger)row {
-    NSString *filename = self.imageFilenameArray[row];
-    [[NSWorkspace sharedWorkspace] openFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]];
+    GVImageFile *imageFile = [self currentDataSourceArray][row];
+    [[NSWorkspace sharedWorkspace] openFile:[self fullFilePath:imageFile]];
+}
+
+- (NSArray *)buildImageFileArray {
+    NSMutableArray *mutableFileObjectArray = [NSMutableArray array];
+    for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.directoryPath error:nil]) {
+        GVImageFile *imageFile = [GVImageFile new];
+        imageFile.filename = filename;
+        
+        NSArray *tags = [NSArray array];
+        NSURL *fileUrl = [NSURL fileURLWithPath:[self fullFilePath:imageFile]];
+        [fileUrl getResourceValue:&tags forKey:NSURLTagNamesKey error:nil];
+        imageFile.tags = tags;
+        self.allTags = [self.allTags setByAddingObjectsFromArray:tags];
+        
+        [mutableFileObjectArray addObject:imageFile];
+    }
+    NSArray *allTagsArray = [self.allTags allObjects];
+    NSArray *sortedArray = [allTagsArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    [self.tagFilter addItemsWithTitles:sortedArray];
+    
+    return mutableFileObjectArray;
+}
+
+- (NSString *)fullFilePath:(GVImageFile *)imageFile {
+    return [NSString stringWithFormat:@"%@/%@", self.directoryPath, imageFile.filename];
+}
+
+- (NSArray *)currentDataSourceArray {
+    return (self.filterEnabled) ? self.filteredImageFileObjects : self.imageFileObjects;
+}
+
+- (void)handleFilterEnabling {
+    self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
+    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+}
+
+- (void)showImageThumbnail:(GVImageFile *)imageFile {
+    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[self fullFilePath:imageFile]]];
+}
+
+- (void)setWidgetsEnabled:(BOOL)enabled {
+    self.tagFilter.enabled = enabled;
+    self.enableFilterCheckbox.enabled = enabled;
+    self.randomImageButton.enabled = enabled;
 }
 
 #pragma mark NSTableViewDataSource Protocol Methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tv {
-    NSInteger count = 0;
-    if (self.imageFilenameArray) {
-        count = [self.imageFilenameArray count];
-    }
-    return count;
+    return [[self currentDataSourceArray] count];
 }
 
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    GVImageFile *imageFile = [self currentDataSourceArray][row];
     if (tableColumn == self.fileCol) {
-        NSString *filename = [self.imageFilenameArray objectAtIndex:row];
-        return filename;
+        return imageFile.filename;
+    } else if (tableColumn == self.tagCol) {
+        return [imageFile.tags componentsJoinedByString:@" | "];
     } else {
         return @"";
     }
 }
 
 - (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
-    NSString *filename = self.imageFilenameArray[row];
-    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/%@", self.directoryPath, filename]]];
+    GVImageFile *imageFile = [self currentDataSourceArray][row];
+    [self.imageView setImage:[[NSImage alloc] initWithContentsOfFile:[self fullFilePath:imageFile]]];
     return YES;
 }
 
