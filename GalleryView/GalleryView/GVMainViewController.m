@@ -124,25 +124,19 @@
     for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.directoryPath error:nil]) {
         GVImageFile *imageFile = [GVImageFile new];
         imageFile.filename = filename;
+        
         NSArray *tags = [NSArray array];
         NSURL *fileUrl = [NSURL fileURLWithPath:[self fullFilePath:imageFile]];
         [fileUrl getResourceValue:&tags forKey:NSURLTagNamesKey error:nil];
         imageFile.tags = tags;
-        
         self.allTags = [self.allTags setByAddingObjectsFromArray:tags];
-        
-        // TODO: remove this a replace with:
-        // turn allTags set into array
-        // sort array by name
-        // add items from array to tagFilter
-        for (NSString *tag in tags) {
-            if (![self.tagFilter doesContain:tag]) {
-                [self.tagFilter addItemWithTitle:tag];
-            }
-        }
         
         [mutableFileObjectArray addObject:imageFile];
     }
+    NSArray *allTagsArray = [self.allTags allObjects];
+    NSArray *sortedArray = [allTagsArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    [self.tagFilter addItemsWithTitles:sortedArray];
+    
     return mutableFileObjectArray;
 }
 
