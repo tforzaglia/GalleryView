@@ -147,6 +147,10 @@
 }
 
 - (void)handleFilterEnabling {
+    if ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) {
+        GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView selectedRow]];
+        [self showImageThumbnail:imageFile];
+    }
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
