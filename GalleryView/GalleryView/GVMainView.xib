@@ -26,7 +26,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYo-eq-fbp">
-                    <rect key="frame" x="13" y="37" width="526" height="550"/>
+                    <rect key="frame" x="21" y="37" width="526" height="550"/>
                     <clipView key="contentView" ambiguous="YES" id="gdO-G4-vds">
                         <rect key="frame" x="1" y="0.0" width="524" height="549"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -74,7 +74,7 @@
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="aXo-ru-xYA">
-                        <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                        <rect key="frame" x="1" y="8" width="0.0" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KCd-tI-Mia">
@@ -87,11 +87,11 @@
                     </tableHeaderView>
                 </scrollView>
                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cA8-X4-yeI">
-                    <rect key="frame" x="544" y="34" width="474" height="556"/>
+                    <rect key="frame" x="554" y="34" width="474" height="556"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Lxd-Ig-geh"/>
                 </imageView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhv-D6-Ycy">
-                    <rect key="frame" x="11" y="590" width="125" height="92"/>
+                    <rect key="frame" x="19" y="590" width="125" height="92"/>
                     <buttonCell key="cell" type="bevel" title="Open Directory" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aj7-TO-LJk">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -101,7 +101,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FvA-tW-BN2">
-                    <rect key="frame" x="545" y="590" width="130" height="92"/>
+                    <rect key="frame" x="555" y="590" width="130" height="92"/>
                     <buttonCell key="cell" type="bevel" title="Random Image" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIW-SN-bWT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -111,7 +111,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-YX-s0m">
-                    <rect key="frame" x="235" y="656" width="185" height="26"/>
+                    <rect key="frame" x="243" y="656" width="185" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="Select a tag to filter by..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="y6F-gg-2Oa" id="wVC-a4-9Re">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -126,7 +126,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFr-X2-CXA">
-                    <rect key="frame" x="423" y="661" width="97" height="18"/>
+                    <rect key="frame" x="431" y="661" width="97" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable Filter" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EJE-hg-pzn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -136,7 +136,7 @@
                     </connections>
                 </button>
                 <tokenField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i81-er-bgv">
-                    <rect key="frame" x="237" y="593" width="302" height="60"/>
+                    <rect key="frame" x="245" y="593" width="302" height="60"/>
                     <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="kfg-Wi-H53">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
