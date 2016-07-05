@@ -163,6 +163,7 @@
     self.tagFilter.enabled = enabled;
     self.enableFilterCheckbox.enabled = enabled;
     self.randomImageButton.enabled = enabled;
+    self.tagTokenField.enabled = enabled;
 }
 
 - (void)buildFilteredImages {
