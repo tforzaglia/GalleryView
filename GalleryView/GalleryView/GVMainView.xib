@@ -15,6 +15,7 @@
                 <outlet property="tableView" destination="wYQ-L0-nC5" id="olo-qA-YPE"/>
                 <outlet property="tagCol" destination="HP3-rn-nBo" id="tVR-RR-6o0"/>
                 <outlet property="tagFilter" destination="NyY-YX-s0m" id="e0W-KU-Kc7"/>
+                <outlet property="tagTokenField" destination="i81-er-bgv" id="YJc-AD-ioU"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -50,7 +51,7 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>
-                                    <tableColumn identifier="" width="295.62109375" minWidth="10" maxWidth="3.4028234663852886e+38" id="HP3-rn-nBo">
+                                    <tableColumn identifier="" width="295.5" minWidth="10" maxWidth="3.4028234663852886e+38" id="HP3-rn-nBo">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Tags">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -73,7 +74,7 @@
                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </clipView>
                     <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="aXo-ru-xYA">
-                        <rect key="frame" x="1" y="533" width="481" height="16"/>
+                        <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="KCd-tI-Mia">
@@ -90,8 +91,8 @@
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Lxd-Ig-geh"/>
                 </imageView>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dhv-D6-Ycy">
-                    <rect key="frame" x="7" y="585" width="133" height="32"/>
-                    <buttonCell key="cell" type="push" title="Open Directory" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aj7-TO-LJk">
+                    <rect key="frame" x="11" y="590" width="125" height="92"/>
+                    <buttonCell key="cell" type="bevel" title="Open Directory" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aj7-TO-LJk">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -100,8 +101,8 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FvA-tW-BN2">
-                    <rect key="frame" x="541" y="585" width="131" height="32"/>
-                    <buttonCell key="cell" type="push" title="Random Image" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIW-SN-bWT">
+                    <rect key="frame" x="545" y="590" width="130" height="92"/>
+                    <buttonCell key="cell" type="bevel" title="Random Image" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aIW-SN-bWT">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -110,7 +111,7 @@
                     </connections>
                 </button>
                 <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NyY-YX-s0m">
-                    <rect key="frame" x="235" y="589" width="185" height="26"/>
+                    <rect key="frame" x="235" y="656" width="185" height="26"/>
                     <popUpButtonCell key="cell" type="push" title="Select a tag to filter by..." bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="y6F-gg-2Oa" id="wVC-a4-9Re">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="menu"/>
@@ -125,7 +126,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFr-X2-CXA">
-                    <rect key="frame" x="423" y="594" width="97" height="18"/>
+                    <rect key="frame" x="423" y="661" width="97" height="18"/>
                     <buttonCell key="cell" type="check" title="Enable Filter" bezelStyle="regularSquare" imagePosition="left" inset="2" id="EJE-hg-pzn">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
@@ -134,6 +135,17 @@
                         <action selector="enableFilter:" target="-2" id="knQ-hU-qkR"/>
                     </connections>
                 </button>
+                <tokenField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i81-er-bgv">
+                    <rect key="frame" x="237" y="593" width="302" height="60"/>
+                    <tokenFieldCell key="cell" selectable="YES" editable="YES" borderStyle="bezel" alignment="left" drawsBackground="YES" allowsEditingTextAttributes="YES" id="kfg-Wi-H53">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </tokenFieldCell>
+                    <connections>
+                        <outlet property="delegate" destination="-2" id="OYz-br-yyh"/>
+                    </connections>
+                </tokenField>
             </subviews>
             <point key="canvasLocation" x="430.5" y="318"/>
         </customView>

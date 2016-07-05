@@ -25,10 +25,13 @@
 @property (weak) IBOutlet NSImageView *imageView;
 @property (weak) IBOutlet NSPopUpButton *tagFilter;
 @property (weak) IBOutlet NSButton *enableFilterCheckbox;
+@property (weak) IBOutlet NSTokenField *tagTokenField;
 
 @property (nonatomic, strong) NSArray *imageFileObjects;
 @property (nonatomic, strong) NSArray *filteredImageFileObjects;
 @property (nonatomic, strong) NSSet *allTags;
+@property (nonatomic, strong) NSSet *currentlySelectedTags;
+
 @property (nonatomic, strong) NSString *directoryPath;
 
 @property (nonatomic) BOOL filterEnabled;
@@ -45,6 +48,7 @@
     [self.tableView setDoubleAction:@selector(openImageInPreview:)];
     
     self.allTags = [[NSSet alloc] init];
+    self.currentlySelectedTags = [[NSSet alloc] init];
     self.filteredImageFileObjects = [[NSArray alloc] init];
     self.filterEnabled = NO;
     [self setWidgetsEnabled:NO];
@@ -86,15 +90,9 @@
 
 - (IBAction)filterImages:(id)sender {
     NSString *tag = [[self.tagFilter selectedItem] title];
-    NSMutableArray *mutableFilteredImageObjects = [NSMutableArray array];
-    for (GVImageFile *imageFile in self.imageFileObjects) {
-        if ([imageFile.tags containsObject:tag]) {
-            [mutableFilteredImageObjects addObject:imageFile];
-        }
-    }
-    self.filteredImageFileObjects = mutableFilteredImageObjects;
-    [self.enableFilterCheckbox setState:NSOnState];
-    [self handleFilterEnabling];
+    self.currentlySelectedTags = [self.currentlySelectedTags setByAddingObject:tag];
+    [self.tagTokenField setObjectValue:[self.currentlySelectedTags allObjects]];
+    [self buildFilteredImages];
 }
 
 - (IBAction)enableFilter:(id)sender {
@@ -163,6 +161,20 @@
     self.randomImageButton.enabled = enabled;
 }
 
+- (void)buildFilteredImages {
+    NSMutableArray *mutableFilteredImageObjects = [NSMutableArray array];
+    for (GVImageFile *imageFile in self.imageFileObjects) {
+        for (NSString *setTag in self.currentlySelectedTags) {
+            if ([imageFile.tags containsObject:setTag]) {
+                [mutableFilteredImageObjects addObject:imageFile];
+            }
+        }
+    }
+    self.filteredImageFileObjects = mutableFilteredImageObjects;
+    [self.enableFilterCheckbox setState:NSOnState];
+    [self handleFilterEnabling];
+}
+
 #pragma mark NSTableViewDataSource Protocol Methods
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tv {
@@ -186,9 +198,16 @@
     return YES;
 }
 
--(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+- (BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     [self openImageAtRow:row];
     return YES;
+}
+
+#pragma mark NSControl Delegate Protocol Methods
+
+- (void)controlTextDidChange:(NSNotification *)obj {
+    self.currentlySelectedTags = [NSSet setWithArray:[self.tagTokenField objectValue]];
+    [self buildFilteredImages];
 }
 
 @end
