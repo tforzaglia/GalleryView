@@ -8,6 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface GVMainViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface GVMainViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate, NSTokenFieldDelegate>
 
 @end

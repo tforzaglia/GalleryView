@@ -208,6 +208,17 @@
     return YES;
 }
 
+- (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {
+    NSMutableArray *validTokens = [NSMutableArray array];
+    for (NSString *newTag in tokens) {
+        if ([self.allTags containsObject:newTag]) {
+            [validTokens addObject:newTag];
+        }
+    }
+
+    return validTokens;
+}
+
 #pragma mark NSControl Delegate Protocol Methods
 
 - (void)controlTextDidChange:(NSNotification *)obj {
