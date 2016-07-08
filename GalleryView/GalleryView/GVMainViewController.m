@@ -147,11 +147,13 @@
 }
 
 - (void)handleFilterEnabling {
-    if ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) {
-        GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView selectedRow]];
-        [self showImageThumbnail:imageFile];
-    }
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
+    NSInteger row = ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) ? [self.tableView selectedRow] : [[self currentDataSourceArray] count] - 1;
+    GVImageFile *imageFile = [self currentDataSourceArray][row];
+    [self showImageThumbnail:imageFile];
+    
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
+    [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
     [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
@@ -187,6 +189,7 @@
 }
 
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    row = (row <= [[self currentDataSourceArray] count]) ? row : [[self currentDataSourceArray] count] - 1;
     GVImageFile *imageFile = [self currentDataSourceArray][row];
     if (tableColumn == self.fileCol) {
         return imageFile.filename;
@@ -208,6 +211,8 @@
     return YES;
 }
 
+#pragma mark NSTokenFieldDelegate Protocol Methods
+
 - (NSArray *)tokenField:(NSTokenField *)tokenField shouldAddObjects:(NSArray *)tokens atIndex:(NSUInteger)index {
     NSMutableArray *validTokens = [NSMutableArray array];
     for (NSString *newTag in tokens) {
@@ -215,7 +220,6 @@
             [validTokens addObject:newTag];
         }
     }
-
     return validTokens;
 }
 
