@@ -10,7 +10,9 @@
 
 @interface GVImageFile : NSObject
 
-@property (nonatomic, copy) NSString *filename;
-@property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, copy, nonnull) NSString *filename;
+@property (nonatomic, strong, nonnull) NSArray *tags;
+@property (nonatomic, strong, nonnull) NSDate *createdDate;
+@property (nonatomic, strong, nonnull) NSDate *modifiedDate;
 
 @end
