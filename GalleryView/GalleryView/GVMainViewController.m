@@ -149,12 +149,14 @@
 - (void)handleFilterEnabling {
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
     NSInteger row = ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) ? [self.tableView selectedRow] : [[self currentDataSourceArray] count] - 1;
-    GVImageFile *imageFile = [self currentDataSourceArray][row];
-    [self showImageThumbnail:imageFile];
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
-    [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    if (row >= 0 && [[self currentDataSourceArray] count]) {
+        GVImageFile *imageFile = [self currentDataSourceArray][row];
+        [self showImageThumbnail:imageFile];
+
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
+        [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }
 }
 
 - (void)showImageThumbnail:(GVImageFile *)imageFile {
