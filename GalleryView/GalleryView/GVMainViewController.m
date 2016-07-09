@@ -22,6 +22,8 @@
 @property (weak) IBOutlet NSTableView *tableView;
 @property (weak) IBOutlet NSTableColumn *fileCol;
 @property (weak) IBOutlet NSTableColumn *tagCol;
+@property (weak) IBOutlet NSTableColumn *createdDateCol;
+@property (weak) IBOutlet NSTableColumn *modifiedDateCol;
 @property (weak) IBOutlet NSImageView *imageView;
 @property (weak) IBOutlet NSPopUpButton *tagFilter;
 @property (weak) IBOutlet NSButton *enableFilterCheckbox;
@@ -33,6 +35,7 @@
 @property (nonatomic, strong) NSSet *currentlySelectedTags;
 
 @property (nonatomic, strong) NSString *directoryPath;
+@property (nonatomic, strong) NSDateFormatter *dateFormatter;
 
 @property (nonatomic) BOOL filterEnabled;
 
@@ -51,6 +54,8 @@
     self.currentlySelectedTags = [[NSSet alloc] init];
     self.filteredImageFileObjects = [[NSArray alloc] init];
     self.filterEnabled = NO;
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm:ss a"];
     [self setWidgetsEnabled:NO];
 }
 
@@ -80,12 +85,16 @@
 
 - (IBAction)openImageInPreview:(id)sender {
     NSInteger clickedRow = [self.tableView clickedRow];
-    [self openImageAtRow:clickedRow];
+    if (clickedRow <= [[self currentDataSourceArray] count]) {
+        [self openImageAtRow:clickedRow];
+    }
 }
 
 - (IBAction)showImageInWell:(id)sender {
-    GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView clickedRow]];
-    [self showImageThumbnail:imageFile];
+    if ([self.tableView clickedRow] <= [[self currentDataSourceArray] count]) {
+        GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView clickedRow]];
+        [self showImageThumbnail:imageFile];
+    }
 }
 
 - (IBAction)filterImages:(id)sender {
@@ -129,6 +138,10 @@
         imageFile.tags = tags;
         self.allTags = [self.allTags setByAddingObjectsFromArray:tags];
         
+        NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:[self fullFilePath:imageFile] error:nil];
+        imageFile.createdDate = attributes[NSFileCreationDate];
+        imageFile.modifiedDate = attributes[NSFileModificationDate];
+
         [mutableFileObjectArray addObject:imageFile];
     }
     NSArray *allTagsArray = [self.allTags allObjects];
@@ -149,12 +162,14 @@
 - (void)handleFilterEnabling {
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
     NSInteger row = ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) ? [self.tableView selectedRow] : [[self currentDataSourceArray] count] - 1;
-    GVImageFile *imageFile = [self currentDataSourceArray][row];
-    [self showImageThumbnail:imageFile];
-    
-    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
-    [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
-    [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    if (row >= 0 && [[self currentDataSourceArray] count]) {
+        GVImageFile *imageFile = [self currentDataSourceArray][row];
+        [self showImageThumbnail:imageFile];
+
+        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
+        [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+    }
 }
 
 - (void)showImageThumbnail:(GVImageFile *)imageFile {
@@ -195,6 +210,10 @@
         return imageFile.filename;
     } else if (tableColumn == self.tagCol) {
         return [imageFile.tags componentsJoinedByString:@" | "];
+    } else if (tableColumn == self.createdDateCol) {
+        return [self.dateFormatter stringFromDate:imageFile.createdDate];
+    } else if (tableColumn == self.modifiedDateCol) {
+        return [self.dateFormatter stringFromDate:imageFile.modifiedDate];
     } else {
         return @"";
     }
