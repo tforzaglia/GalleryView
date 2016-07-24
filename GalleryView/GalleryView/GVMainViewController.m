@@ -161,13 +161,14 @@
 
 - (void)handleFilterEnabling {
     self.filterEnabled = (self.enableFilterCheckbox.state == 1) ? YES :  NO;
-    NSInteger row = ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) ? [self.tableView selectedRow] : [[self currentDataSourceArray] count] - 1;
+    NSInteger row = ([self.tableView selectedRow] <= [[self currentDataSourceArray] count]) ? [self.tableView selectedRow] : 0;
     if (row >= 0 && [[self currentDataSourceArray] count]) {
         GVImageFile *imageFile = [self currentDataSourceArray][row];
         [self showImageThumbnail:imageFile];
 
         NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:row];
         [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
+        [self.tableView scrollRowToVisible:row];
         [self.tableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
     }
 }
@@ -193,7 +194,11 @@
         }
     }
     self.filteredImageFileObjects = mutableFilteredImageObjects;
-    [self.enableFilterCheckbox setState:NSOnState];
+    if ([self.filteredImageFileObjects count] > 0) {
+        [self.enableFilterCheckbox setState:NSOnState];
+    } else {
+        [self.enableFilterCheckbox setState:NSOffState];
+    }
     [self handleFilterEnabling];
 }
 
