@@ -14,6 +14,7 @@
                 <outlet property="modifiedDateCol" destination="YD5-nh-0GT" id="VLN-hO-ayY"/>
                 <outlet property="openDirectoryButton" destination="dhv-D6-Ycy" id="5Wg-rZ-AQI"/>
                 <outlet property="randomImageButton" destination="FvA-tW-BN2" id="klF-ae-LOF"/>
+                <outlet property="searchField" destination="7Tt-RY-tWm" id="F0t-cY-fkv"/>
                 <outlet property="tableView" destination="wYQ-L0-nC5" id="olo-qA-YPE"/>
                 <outlet property="tagCol" destination="HP3-rn-nBo" id="tVR-RR-6o0"/>
                 <outlet property="tagFilter" destination="NyY-YX-s0m" id="e0W-KU-Kc7"/>
@@ -35,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="6Pz-7n-LiQ" viewBased="YES" id="wYQ-L0-nC5">
-                                <rect key="frame" x="0.0" y="0.0" width="1002" height="302"/>
+                                <rect key="frame" x="0.0" y="0.0" width="999" height="0.0"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -115,17 +116,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <button verticalHuggingPriority="750" id="dhv-D6-Ycy">
-                    <rect key="frame" x="19" y="590" width="220" height="92"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="bevel" title="Open Directory" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aj7-TO-LJk">
-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="openImageDirectory:" target="-2" id="LD9-yG-VSz"/>
-                    </connections>
-                </button>
                 <button verticalHuggingPriority="750" id="FvA-tW-BN2">
                     <rect key="frame" x="19" y="157" width="220" height="92"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -181,6 +171,29 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" imageFrameStyle="grayBezel" id="Lxd-Ig-geh"/>
                 </imageView>
+                <searchField wantsLayer="YES" verticalHuggingPriority="750" id="7Tt-RY-tWm">
+                    <rect key="frame" x="21" y="593" width="216" height="22"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Oui-Ig-lst">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </searchFieldCell>
+                    <connections>
+                        <action selector="searchFilenames:" target="-2" id="pMH-An-JR3"/>
+                    </connections>
+                </searchField>
+                <button verticalHuggingPriority="750" id="dhv-D6-Ycy">
+                    <rect key="frame" x="19" y="622" width="220" height="60"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="bevel" title="Open Directory" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="aj7-TO-LJk">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="openImageDirectory:" target="-2" id="LD9-yG-VSz"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="430.5" y="318"/>
         </customView>

@@ -28,6 +28,7 @@
 @property (weak) IBOutlet NSPopUpButton *tagFilter;
 @property (weak) IBOutlet NSButton *enableFilterCheckbox;
 @property (weak) IBOutlet NSTokenField *tagTokenField;
+@property (weak) IBOutlet NSSearchField *searchField;
 
 @property (nonatomic, strong) NSArray *imageFileObjects;
 @property (nonatomic, strong) NSArray *filteredImageFileObjects;
@@ -117,6 +118,18 @@
     NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:randomIndex];
     [self.tableView selectRowIndexes:indexSet byExtendingSelection:NO];
     [self.tableView scrollRowToVisible:randomIndex];
+}
+
+- (IBAction)searchFilenames:(id)sender {
+    NSArray *matchingTracks = [[self currentDataSourceArray] filteredArrayUsingPredicate:
+                               [NSPredicate predicateWithFormat:@"SELF.filename beginswith[cd] %@", [self.searchField stringValue]]];
+    self.filteredImageFileObjects = matchingTracks;
+    if ([self.filteredImageFileObjects count] > 0) {
+        [self.enableFilterCheckbox setState:NSOnState];
+    } else {
+        [self.enableFilterCheckbox setState:NSOffState];
+    }
+    [self handleFilterEnabling];
 }
 
 #pragma mark Private Methods
@@ -210,6 +223,9 @@
 
 - (id)tableView:(NSTableView *)tv objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     row = (row <= [[self currentDataSourceArray] count]) ? row : [[self currentDataSourceArray] count] - 1;
+    if (row >= [[self currentDataSourceArray] count] ) {
+        return @"";
+    }
     GVImageFile *imageFile = [self currentDataSourceArray][row];
     if (tableColumn == self.fileCol) {
         return imageFile.filename;
