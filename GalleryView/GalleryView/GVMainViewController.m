@@ -132,6 +132,11 @@
     [self handleFilterEnabling];
 }
 
+- (IBAction)openInFinder:(id)sender {
+    GVImageFile *imageFile = [self currentDataSourceArray][[self.tableView clickedRow]];
+    [[NSWorkspace sharedWorkspace] selectFile:[self fullFilePath:imageFile] inFileViewerRootedAtPath:[self fullFilePath:imageFile]];
+}
+
 #pragma mark Private Methods
 
 - (void)openImageAtRow:(NSInteger)row {
