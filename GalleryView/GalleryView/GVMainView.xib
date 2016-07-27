@@ -188,7 +188,7 @@
                 </imageView>
                 <searchField wantsLayer="YES" verticalHuggingPriority="750" id="7Tt-RY-tWm">
                     <rect key="frame" x="21" y="593" width="216" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="Oui-Ig-lst">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
